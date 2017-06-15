@@ -78,12 +78,14 @@ public class CircleRaycast2DPerception : IPerception {
     {
     	ObjectPerception[] objects = new ObjectPerception[mNumberOfHits];
 
-    	int numberOfResults = Physics2D.OverlapCircleNonAlloc(mPlayer.position, 
-                                                              (float) mRaycastRadius,
-                                                              mColliders2D, 
-                                                              (1 << LayerMask.NameToLayer(Layers.Platforms_Default)) |
-                                                              (1 << LayerMask.NameToLayer(Layers.Collectibles))
-                                                           );
+        int numberOfResults = 0;
+
+    	// int numberOfResults = Physics2D.OverlapCircleNonAlloc(mPlayer.position, 
+     //                                                          (float) mRaycastRadius,
+     //                                                          mColliders2D, 
+     //                                                          (1 << LayerMask.NameToLayer(Layers.Platforms_Default)) |
+     //                                                          (1 << LayerMask.NameToLayer(Layers.Collectibles))
+     //                                                       );
 
     	for (int i = 0; i < numberOfResults; i++)
     	{

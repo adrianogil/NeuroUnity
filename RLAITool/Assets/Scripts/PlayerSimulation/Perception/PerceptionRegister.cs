@@ -10,7 +10,7 @@ public class PerceptionRegister : MonoBehaviour {
 	const string BaseFileExtension = ".txt";
 
 	IPerception mPerception = null;
-	PlayerController playerController = null;
+	// PlayerController playerController = null;
 	bool lastJumping = false;
 
 	void Start () 
@@ -31,14 +31,14 @@ public class PerceptionRegister : MonoBehaviour {
             {
                 CategoryName = "obstacle",
                 Tags = new string[] { 
-                    Tags.Obstacle_Island,
-                    Tags.Obstacle_Ramp,
-                    Tags.Obstacle_Platform,
-                    Tags.Obstacle_Box_Wood,
-                    Tags.Obstacle_Box_Iron,
-                    Tags.Obstacle_Bomb,
-                    Tags.Obstacle_TimeArc,
-                    Tags.Coin_Basic
+                    // Tags.Obstacle_Island,
+                    // Tags.Obstacle_Ramp,
+                    // Tags.Obstacle_Platform,
+                    // Tags.Obstacle_Box_Wood,
+                    // Tags.Obstacle_Box_Iron,
+                    // Tags.Obstacle_Bomb,
+                    // Tags.Obstacle_TimeArc,
+                    // Tags.Coin_Basic
                 },
                 ObjectNames = null
             },
@@ -47,15 +47,15 @@ public class PerceptionRegister : MonoBehaviour {
             {
                 CategoryName = "collectable",
                 Tags = new string[] { 
-                    Tags.Coin_Basic
+                    // Tags.Coin_Basic
                 },
                 ObjectNames = null
             }
         });
 
-        GameObject player = GameManager.Instance.GetPlayer();
-        playerController = player.GetComponent<PlayerController>();
-		mPerception = new Raycast2DPerception(player.transform, 30, 10, tagRecognition);
+        // GameObject player = GameManager.Instance.GetPlayer();
+        // playerController = player.GetComponent<PlayerController>();
+		// mPerception = new Raycast2DPerception(player.transform, 30, 10, tagRecognition);
 	}
 
 	void RegisterFramePerception () 
@@ -72,7 +72,7 @@ public class PerceptionRegister : MonoBehaviour {
 		string[] lines  = new string[4+perception.Length];
 
 		lines[0] = "2";
-		lines[1] = playerController.isRolling? "1": "-1";
+		// lines[1] = playerController.isRolling? "1": "-1";
 		lines[2] = perception.Length.ToString();
 
 		for (int p = 0; p < perception.Length; p++)
@@ -84,7 +84,7 @@ public class PerceptionRegister : MonoBehaviour {
 
 		System.IO.File.WriteAllLines(Application.persistentDataPath + "/" + filename, lines);
 
-		lastJumping = playerController.isRolling;
+		// lastJumping = playerController.isRolling;
 
 		currentFrameRegister++;
 		PlayerPrefs.SetInt(PerceptionFramePrefsKey, currentFrameRegister);

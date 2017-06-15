@@ -3,7 +3,7 @@ using System.Collections;
 
 using AForge.Neuro;
 
-public class AIPlayerBehavior : MonoBehaviour, IEventObserver
+public class AIPlayerBehavior : MonoBehaviour
 {
 
 	#region Singleton
@@ -74,16 +74,16 @@ public class AIPlayerBehavior : MonoBehaviour, IEventObserver
     {
         Debug.Log("ForceGameToStart");
 
-        HomeGUIManager.Instance.StartGame();
+        // StartGame();
     }
 
 	void SetupSimulation()
 	{
         Debug.Log("SetupSimulation");
 
-        mPlayer = GameManager.Instance.GetPlayer();
+        // mPlayer = GameManager.Instance.GetPlayer();
 
-        GameManager.Instance.OnGameOver += OnOneSimulationOver;
+        // GameManager.Instance.OnGameOver += OnOneSimulationOver;
 
         /** Instantiate perception **/
         CategoryObjectRecognition tagRecognition = new CategoryObjectRecognition(new CategoryObject[]
@@ -92,14 +92,14 @@ public class AIPlayerBehavior : MonoBehaviour, IEventObserver
             {
                 CategoryName = "obstacle",
                 Tags = new string[] { 
-                    Tags.Obstacle_Island,
-                    Tags.Obstacle_Ramp,
-                    Tags.Obstacle_Platform,
-                    Tags.Obstacle_Box_Wood,
-                    Tags.Obstacle_Box_Iron,
-                    Tags.Obstacle_Bomb,
-                    Tags.Obstacle_TimeArc,
-                    Tags.Coin_Basic
+                    // Tags.Obstacle_Island,
+                    // Tags.Obstacle_Ramp,
+                    // Tags.Obstacle_Platform,
+                    // Tags.Obstacle_Box_Wood,
+                    // Tags.Obstacle_Box_Iron,
+                    // Tags.Obstacle_Bomb,
+                    // Tags.Obstacle_TimeArc,
+                    // Tags.Coin_Basic
                 },
                 ObjectNames = null
             },
@@ -108,7 +108,7 @@ public class AIPlayerBehavior : MonoBehaviour, IEventObserver
             {
                 CategoryName = "collectable",
                 Tags = new string[] { 
-                    Tags.Coin_Basic
+                    // Tags.Coin_Basic
                 },
                 ObjectNames = null
             }
@@ -151,7 +151,7 @@ public class AIPlayerBehavior : MonoBehaviour, IEventObserver
         NeuralWeights = mActivationNetwork.GetWeights();
 
         // Add itself as an event Observer
-        EventTracker.Instance.AddObserver(this);
+        // EventTracker.Instance.AddObserver(this);
 
         if (!mGeneticPopulation.IsLastChromosome())
         {
@@ -170,11 +170,11 @@ public class AIPlayerBehavior : MonoBehaviour, IEventObserver
 
     private void ResetScore()
     {
-        ScoreManager.Instance.totalScore = 0;
-        ScoreManager.Instance.totalBonusScore = 0;
-        ScoreManager.Instance.totalCoinsCollected = 0;
-        ScoreManager.Instance.totalDistanceTravelled = 0;
-        ScoreManager.Instance.totalBadTouchdowns = 0;
+        // ScoreManager.Instance.totalScore = 0;
+        // ScoreManager.Instance.totalBonusScore = 0;
+        // ScoreManager.Instance.totalCoinsCollected = 0;
+        // ScoreManager.Instance.totalDistanceTravelled = 0;
+        // ScoreManager.Instance.totalBadTouchdowns = 0;
     }
 
 	public void OnOneSimulationOver()
@@ -186,7 +186,7 @@ public class AIPlayerBehavior : MonoBehaviour, IEventObserver
 //            (-100f) * ScoreManager.Instance.totalBadTouchdowns +
 //            mRefoircementScore;
 
-		mPlayer = GameManager.Instance.GetPlayer();
+		// mPlayer = GameManager.Instance.GetPlayer();
 
 		lastFitness = mPlayer.transform.position.x / 200f;
         //lastFitness += ScoreManager.Instance.totalCoinsCollected / 400f;
@@ -212,8 +212,6 @@ public class AIPlayerBehavior : MonoBehaviour, IEventObserver
 
 	void DestroyLevel()
 	{
-        Destroy(GameObject.Find("~LeanTween"));
-        LeanTween.reset();
         Application.LoadLevel("LoadingScreen");
 	}
 
@@ -244,15 +242,5 @@ public class AIPlayerBehavior : MonoBehaviour, IEventObserver
 			CurrentJumpInput = true;
 		}
 	}
-
-    public void ReceiveEvent(string eventName, float eventValue)
-    {
-        if (!alreadyDetectStumbling && eventName == Constants.Events.StumblingMovement)
-        {
-            alreadyDetectStumbling = true;
-
-            OnBadTouchdown();
-        }
-    }
 }
 

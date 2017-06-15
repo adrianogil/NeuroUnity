@@ -52,8 +52,8 @@ public class Raycast2DPerception : IPerception
 		double sqrDistance = (mRaycastDistance * mRaycastDistance);
 
 		RaycastHit2D hit = Physics2D.Raycast(position, direction, (float)mRaycastDistance, 
-		                                     (1 << LayerMask.NameToLayer(Layers.Platforms_Default)) |
-                                             (1 << LayerMask.NameToLayer(Layers.Collectibles)));
+		                                     1,//(1 << LayerMask.NameToLayer(Layers.Platforms_Default)) |
+                                             1);//(1 << LayerMask.NameToLayer(Layers.Collectibles)));
 
         Debug.DrawRay(mPlayer.position, direction * 10); 
 
