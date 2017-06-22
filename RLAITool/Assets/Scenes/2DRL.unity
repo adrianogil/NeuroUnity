@@ -176,6 +176,85 @@ Prefab:
     - {fileID: 114986975027299736, guid: ef4e9edfd77914d099f1f09ce3381d14, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: ef4e9edfd77914d099f1f09ce3381d14, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &347178930
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 347178934}
+  - component: {fileID: 347178933}
+  - component: {fileID: 347178932}
+  - component: {fileID: 347178931}
+  m_Layer: 0
+  m_Name: RLAIAgent
+  m_TagString: RLAITool
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &347178931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 347178930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b07f84ed0248b49c78c47e367ef2764a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentOutputs:
+  - name: Jump
+    outputType: 1
+    messageAction:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+  customEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+--- !u!114 &347178932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 347178930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8a3c8ff36b2e47cab4318a6069acb03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  perceptionMode: 0
+--- !u!114 &347178933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 347178930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 969164d8125f64aa3890637db9621a1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AIMethod: 0
+--- !u!4 &347178934
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 347178930}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &845363213
 GameObject:
   m_ObjectHideFlags: 0
