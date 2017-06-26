@@ -9,4 +9,9 @@ public enum PerceptionType
 public class AgentPerception : MonoBehaviour
 {
     public PerceptionType perceptionMode;
+
+    public void GeneratePerception()
+    {
+        // Raycast2DPerception(Transform playerTransform, int numberOfRays, double raycastDistance, IObjectRecognition objRecognition);
+    }
 }

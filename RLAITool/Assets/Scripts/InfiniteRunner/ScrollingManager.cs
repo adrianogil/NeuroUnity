@@ -98,6 +98,8 @@ public class ScrollingManager : MonoBehaviour {
         if (viewportOffset.y == 0f)
             objectPosition.y = 0f;
 
+        objectPosition.z = 0f;
+
         return objectPosition;
     }
 

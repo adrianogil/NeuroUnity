@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -11,9 +12,21 @@ public enum RLAIType
     Neuroevolution
 }
 
+public enum RLAILearningMode
+{
+    Supervised,
+    Reinforcement
+}
+
 public class RLAIToolAgent : MonoBehaviour
 {
     public RLAIType AIMethod;
+
+    public RLAILearningMode AILearningMode;
+
+    public Transform player;
+
+    [HideInInspector] public UnityEvent RestartGameplay;
 }
 
 #if UNITY_EDITOR
