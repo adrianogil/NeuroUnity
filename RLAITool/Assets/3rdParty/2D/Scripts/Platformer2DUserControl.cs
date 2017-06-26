@@ -26,6 +26,10 @@ namespace UnityStandardAssets._2D
             }
         }
 
+        public void Jump()
+        {
+            m_Jump = true;
+        }
 
         private void FixedUpdate()
         {

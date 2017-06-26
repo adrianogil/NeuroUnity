@@ -1,15 +1,20 @@
 using UnityEngine;
+using UnityEngine.Events;
+
+[System.Serializable]
+public class GameOverEvent : UnityEvent <float> {}
 
 public class GameManager : MonoBehaviour
 {
-
     public float levelVelocity;
     public Transform cameraTransform;
+
+    public GameOverEvent OnGameOver;
 
     private Transform player;
 
     private float lastPos;
-    
+
     private bool isPlaying = false;
 
     void Awake()
@@ -54,6 +59,7 @@ public class GameManager : MonoBehaviour
     void GameOver()
     {
         isPlaying = false;
+        OnGameOver.Invoke((float)ScoreManager.Instance.score);
         Debug.Log("GilLog - GameManager::GameOver");
     }
 }

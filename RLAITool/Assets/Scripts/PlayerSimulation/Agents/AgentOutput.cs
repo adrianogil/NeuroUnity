@@ -9,7 +9,7 @@ using UnityEditor;
 
 public enum OutputType
 {
-    SimulatedInputKey, 
+    SimulatedInputKey,
     SendMessage
 }
 
@@ -21,15 +21,41 @@ public class SimulatedOutputData
     public OutputType outputType;
 
     public UnityEvent messageAction;
+
+    public void ActivateOutput()
+    {
+        if (outputType == OutputType.SendMessage)
+        {
+            messageAction.Invoke();
+        }
+    }
 }
 
-public class AgentOutput : MonoBehaviour
+public class AgentOutput : MonoBehaviour, IAgentOutput
 {
     [HideInInspector]
     public List<SimulatedOutputData> agentOutputs = new List<SimulatedOutputData>();
 
     [HideInInspector]
     public UnityEvent customEvent;
+
+    public int GetOutputSize()
+    {
+        return agentOutputs.Count;
+    }
+
+    public void SetOutputValues(double[] output)
+    {
+        if (output != null)
+        {
+            for (int o = 0; o < output.Length; o++)
+            {
+                if (output[o] >= 0.5) {
+                    agentOutputs[o].ActivateOutput();
+                }
+            }
+        }
+    }
 }
 
 #if UNITY_EDITOR
@@ -51,10 +77,10 @@ public class AgentOutputEditor : Editor {
         EditorGUILayout.Space();
 
         if (totalActions == 1)
-        { 
-            EditorGUILayout.LabelField("1 action defined", EditorStyles.boldLabel);
+        {
+            EditorGUILayout.LabelField("1 Action defined", EditorStyles.boldLabel);
         } else {
-           EditorGUILayout.LabelField("" + totalActions + " actions defined", EditorStyles.boldLabel);
+           EditorGUILayout.LabelField("" + totalActions + " Actions defined", EditorStyles.boldLabel);
         }
 
         bool unfold;
@@ -76,7 +102,7 @@ public class AgentOutputEditor : Editor {
                 {
                     agentOutput.customEvent = o.messageAction;
                     SerializedProperty sprop = serializedObject.FindProperty("customEvent");
-                  
+
                     EditorGUIUtility.LookLikeControls();
                     EditorGUILayout.PropertyField(sprop);
 
@@ -96,7 +122,7 @@ public class AgentOutputEditor : Editor {
             agentOutput.agentOutputs.Add(new SimulatedOutputData()
             {
                 outputType = OutputType.SendMessage
-            });    
+            });
         }
     }
 }
