@@ -34,8 +34,6 @@ public class RLAIToolAgent : MonoBehaviour
 
     public RLAILearningMode AILearningMode;
 
-
-
     [HideInInspector] public UnityEvent RestartGameplay;
     [HideInInspector] public int[] neuralArchitecture = new int[] {8, 1};
     [HideInInspector] public bool IsLearningMode = false;
@@ -83,6 +81,8 @@ public class RLAIToolAgent : MonoBehaviour
         {
             agent.OnSimulationOver(reinforcementScore);
         }
+
+        Application.LoadLevel(0);
     }
 }
 

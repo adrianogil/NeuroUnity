@@ -261,9 +261,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   perceptionMode: 0
-  numberOfRays: 0
-  raycastDistance: 0
-  categoriesList: []
+  numberOfRays: 5
+  raycastDistance: 5
+  categoriesList:
+  - CategoryName: Obstacle
+    Tags:
+    - Platform
+    ObjectNames: []
+  - CategoryName: Collectables
+    Tags:
+    - Coins
+    ObjectNames: []
 --- !u!114 &347178933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,14 +283,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 969164d8125f64aa3890637db9621a1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 869130032}
+  updateMode: 0
   AIMethod: 2
   AILearningMode: 1
-  player: {fileID: 869130032}
   RestartGameplay:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  neuralArchitecture: 080000000100000001000000
+  IsLearningMode: 1
 --- !u!4 &347178934
 Transform:
   m_ObjectHideFlags: 0
@@ -582,6 +593,11 @@ Prefab:
       propertyPath: m_JumpForce
       value: 900
       objectReference: {fileID: 0}
+    - target: {fileID: 50450619084203262, guid: 333227dbdaf9a4f019d4d94032f14242,
+        type: 2}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 333227dbdaf9a4f019d4d94032f14242, type: 2}
   m_IsPrefabParent: 0
@@ -735,6 +751,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelVelocity: 9.5
   cameraTransform: {fileID: 317126212}
+  OnGameOver:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 347178933}
+        m_MethodName: OnSimulationOver
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: GameOverEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!4 &2119632513 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4608186164156906, guid: ef4e9edfd77914d099f1f09ce3381d14,
