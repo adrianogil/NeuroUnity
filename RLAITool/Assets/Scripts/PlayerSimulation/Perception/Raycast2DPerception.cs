@@ -87,4 +87,9 @@ public class Raycast2DPerception : IPerception
     {
         return mObjectRecognition.GetNumberOfObjects() * mNumberOfRays;
     }
+
+    public void DebugDraw()
+    {
+        
+    }
 }

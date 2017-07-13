@@ -8,4 +8,6 @@ public interface IPerception
     double[] GetFeatureVector();
 
     int GetFeatureSize();
+
+    void DebugDraw();
 }

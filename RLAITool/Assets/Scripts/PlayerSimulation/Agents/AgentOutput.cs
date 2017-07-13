@@ -10,8 +10,13 @@ using UnityEditor;
 public enum OutputType
 {
     SimulatedInputKey,
-    SendMessage
+    SendMessage,
+    SendMessageFloat
+
 }
+
+[System.Serializable]
+public class FloatEvent : UnityEvent <float> {}
 
 [System.Serializable]
 public class SimulatedOutputData
@@ -22,11 +27,17 @@ public class SimulatedOutputData
 
     public UnityEvent messageAction;
 
-    public void ActivateOutput()
+    public FloatEvent messageFloatAction;
+
+    public void ActivateOutput(float outputValue)
     {
-        if (outputType == OutputType.SendMessage)
+        if (outputType == OutputType.SendMessage && outputValue >= 0.5)
         {
             messageAction.Invoke();
+        }
+        else if (outputType == OutputType.SendMessageFloat)
+        {
+            messageFloatAction.Invoke(outputValue);
         }
     }
 }
@@ -36,8 +47,8 @@ public class AgentOutput : MonoBehaviour, IAgentOutput
     [HideInInspector]
     public List<SimulatedOutputData> agentOutputs = new List<SimulatedOutputData>();
 
-    [HideInInspector]
-    public UnityEvent customEvent;
+    [HideInInspector] public UnityEvent customEvent;
+    [HideInInspector] public FloatEvent customFloatEvent;
 
     public int GetOutputSize()
     {
@@ -50,9 +61,7 @@ public class AgentOutput : MonoBehaviour, IAgentOutput
         {
             for (int o = 0; o < output.Length; o++)
             {
-                if (output[o] >= 0.5) {
-                    agentOutputs[o].ActivateOutput();
-                }
+                agentOutputs[o].ActivateOutput((float)output[o]);
             }
         }
     }
@@ -109,6 +118,18 @@ public class AgentOutputEditor : Editor {
                     serializedObject.ApplyModifiedProperties();
                     o.messageAction = agentOutput.customEvent;
                 }
+                else if (o.outputType == OutputType.SendMessageFloat)
+                {
+                    agentOutput.customFloatEvent = o.messageFloatAction;
+                    SerializedProperty sprop = serializedObject.FindProperty("customFloatEvent");
+
+                    EditorGUIUtility.LookLikeControls();
+                    EditorGUILayout.PropertyField(sprop);
+
+                    serializedObject.ApplyModifiedProperties();
+                    o.messageFloatAction = agentOutput.customFloatEvent;
+                }
+
                 EditorGUILayout.Space();
             }
             else if (currentActionUnfold == i)

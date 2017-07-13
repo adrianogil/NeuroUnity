@@ -149,4 +149,9 @@ public class CircleRaycast2DPerception : IPerception {
     {
         return mFeatureVectorSize;
     }
+
+    public void DebugDraw()
+    {
+        
+    }
 }
