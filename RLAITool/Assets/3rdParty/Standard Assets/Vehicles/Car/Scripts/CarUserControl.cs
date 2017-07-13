@@ -19,6 +19,12 @@ namespace UnityStandardAssets.Vehicles.Car
             m_Car = GetComponent<CarController>();
         }
 
+        private void Start()
+        {
+            horizontalSteering = 0f;
+            verticalAcceleration = 1f;
+        }
+
         private void FixedUpdate()
         {
 
@@ -41,13 +47,13 @@ namespace UnityStandardAssets.Vehicles.Car
         public void SetSteering(float s)
         {
             Debug.Log("GilLog - CarUserControl::SetSteering - s " + s + " ");
-            horizontalSteering = s;
+            horizontalSteering = 2*s - 1f;
         }
 
         public void SetAcceleration(float s)
         {
             Debug.Log("GilLog - CarUserControl::SetAcceleration - s " + s + " ");
-            verticalAcceleration = s;
+            verticalAcceleration = 2*s - 1f;
         }
 
     }

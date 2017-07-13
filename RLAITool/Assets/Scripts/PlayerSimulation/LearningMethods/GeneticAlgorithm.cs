@@ -34,7 +34,7 @@ public class Population
     public int CurrentChromosomeID { get { return mCurrentChromosome; } }
     public double BestFitness { get { return mBestFitness; } }
 
-    public const string SAVE_FILE_NAME = "wake_woody_neuroevolutive.params";
+    public const string SAVE_FILE_NAME = "rlai_neuroevolutive.params";
 
     public Population(int chromosomeCount, int weightCount, System.Random randObj)
     {
