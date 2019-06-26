@@ -34,7 +34,15 @@ public class Population
     public int CurrentChromosomeID { get { return mCurrentChromosome; } }
     public double BestFitness { get { return mBestFitness; } }
 
-    public const string SAVE_FILE_NAME = "rlai_neuroevolutive.params";
+    public static string SAVE_FILE_NAME = "rlai_neuroevolutive.params";
+
+    public static string AgentSaveFileName = "";
+
+    public static void SetAgentName(string name)
+    {
+        AgentSaveFileName = name;
+        SAVE_FILE_NAME = "rlai_neuroevolutive_" + AgentSaveFileName + ".params";
+    }
 
     public Population(int chromosomeCount, int weightCount, System.Random randObj)
     {
@@ -80,7 +88,7 @@ public class Population
 		int i  = 2;
 		foreach (Chromosome chromosome in mChromosomes)
 		{
-			foreach (double weight in chromosome.Weights)	
+			foreach (double weight in chromosome.Weights)
 			{
 				lines[i] = weight.ToString();
 				i++;
@@ -89,13 +97,13 @@ public class Population
 			i++;
 		}
 
-		foreach (double weight in BestChromosome.Weights)	
+		foreach (double weight in BestChromosome.Weights)
 		{
 			lines[i] = weight.ToString();
 			i++;
 		}
 		lines[i] = BestChromosome.Fitness.ToString();
-		
+
         i++;
         lines[i] = CurrentChromosomeID.ToString();
 
@@ -129,7 +137,7 @@ public class Population
     {
         char[] archDelim = new char[] { '\r', '\n' };
 
-        string[] lines = textAsset.text.Split(archDelim, StringSplitOptions.RemoveEmptyEntries); 
+        string[] lines = textAsset.text.Split(archDelim, StringSplitOptions.RemoveEmptyEntries);
 
         SetupPopulation(randObj, lines);
     }
@@ -140,12 +148,12 @@ public class Population
 		int weightCount = (int)double.Parse(lines[1]);
 
 		mChromosomes = new Chromosome[chromosomeCount];
-		
+
 		for (int c = 0; c < chromosomeCount; c++)
 		{
 			mChromosomes[c] = new Chromosome(weightCount, randObj);
 		}
-		
+
 		mCurrentPopulation = 0;
 		mCurrentChromosome = 0;
 		BestPopulation = 0;
@@ -192,11 +200,11 @@ public class Population
 
 
 	/* save the best chromosome by writing all its weights on "bestchr.txt" */
-	public void SaveBestChromosome() 
+	public void SaveBestChromosome()
 	{
 		string[] lines  = new string[BestChromosome.Weights.Length];
 		int i  = 0;
-		foreach (double weight in BestChromosome.Weights)	
+		foreach (double weight in BestChromosome.Weights)
 		{
 			lines[i] = weight.ToString();
 			i++;
@@ -204,7 +212,7 @@ public class Population
 
 		System.IO.File.WriteAllLines("bestchr.txt", lines);
 	}
-	
+
 	/* returns the best chromosome by reading all its weights from "bestchr.txt" */
 	public double[] RestoreBestChromosome() {
 		string[] lines = System.IO.File.ReadAllLines("bestchr.txt");
@@ -220,7 +228,7 @@ public class Population
         mCurrentPopulation++;
 
         ResetCurrentChromosome();
-        
+
         Chromosome[] newChromosomes = new Chromosome[mChromosomes.Length];
         double crossOverProbability = 0.85f;
 
@@ -391,16 +399,16 @@ public class Population
         }
     }
 
-    public double LastFitness { 
-        get 
+    public double LastFitness {
+        get
         {
             if (mCurrentChromosome == 0)
             {
                 return double.MinValue;
             }
 
-            return mChromosomes[mCurrentChromosome - 1].Fitness; 
-        } 
+            return mChromosomes[mCurrentChromosome - 1].Fitness;
+        }
     }
 }
 
@@ -410,7 +418,7 @@ public class Chromosome
     private double[] mWeights;
 
     #region Properties
-    public double Fitness 
+    public double Fitness
     {
         get { return mFitness; }
         set { mFitness = value; }

@@ -26,6 +26,8 @@ public enum RLAIUpdateMode
 
 public class RLAIToolAgent : MonoBehaviour
 {
+    public string agentName = "Agent";
+
     public Transform player;
 
     public RLAIUpdateMode updateMode = RLAIUpdateMode.EveryFrame;

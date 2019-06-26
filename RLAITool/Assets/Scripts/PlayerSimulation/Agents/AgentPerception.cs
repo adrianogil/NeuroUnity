@@ -30,6 +30,14 @@ public class AgentPerception : MonoBehaviour
     [HideInInspector] public double raycastDistance;
     [HideInInspector] public List<CategoryObject> categoriesList = new List<CategoryObject>();
 
+    public void Update()
+    {
+        if (perception != null)
+        {
+            perception.DebugDraw();
+        }
+    }
+
     public void GeneratePerception()
     {
         RLAIToolAgent agent = GetComponent<RLAIToolAgent>();
@@ -42,11 +50,11 @@ public class AgentPerception : MonoBehaviour
         }
         else if (perceptionMode == PerceptionType.Raycast3D)
         {
-            perception = new Raycast3DPerception(agent.player, numberOfLatitudeRays, numberOfLongitudeRays, 
+            perception = new Raycast3DPerception(agent.player, numberOfLatitudeRays, numberOfLongitudeRays,
                                                  initialLatitude, finalLatitude, initialLongitude, finalLongitude,
                                                  raycastDistance, tagRecognition);
         }
-        
+
     }
 }
 
@@ -85,7 +93,7 @@ public class AgentPerceptionEditor : Editor {
     }
 
     public void EditRaycast2D(AgentPerception editorObj, bool changed)
-    {   
+    {
         // EditorGUILayout.BeginHorizontal();
         editorObj.numberOfRays = EditorGUILayout.IntField("Number of Rays", editorObj.numberOfRays);
         editorObj.raycastDistance = EditorGUILayout.DoubleField("Raycast distance", editorObj.raycastDistance);
@@ -202,12 +210,14 @@ public class AgentPerceptionEditor : Editor {
             editorObj.GeneratePerception();
         }
 
+        editorObj.perception.DebugDraw();
+
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Perception Feature Size:  " + editorObj.perception.GetFeatureSize(), EditorStyles.boldLabel);
     }
 
     public void EditRaycast3D(AgentPerception editorObj, bool changed)
-    {   
+    {
 
         int lastIntValue;
         float lastFloatValue;
@@ -215,7 +225,7 @@ public class AgentPerceptionEditor : Editor {
         // EditorGUILayout.BeginHorizontal();
         lastIntValue = EditorGUILayout.IntField("Number of Rays Latitude", editorObj.numberOfLatitudeRays);
         if (editorObj.numberOfLatitudeRays != lastIntValue) {editorObj.numberOfLatitudeRays = lastIntValue; changed = true; }
-        
+
         lastIntValue = EditorGUILayout.IntField("Number of Rays Longitude", editorObj.numberOfLongitudeRays);
         if (editorObj.numberOfLongitudeRays != lastIntValue) {editorObj.numberOfLongitudeRays = lastIntValue; changed = true; }
 

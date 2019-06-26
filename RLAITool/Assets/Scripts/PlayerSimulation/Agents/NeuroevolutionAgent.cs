@@ -29,9 +29,17 @@ public class NeuroevolutionAgent : IReinforcementLearningAgent
 
     private double sigmoidAlphaValue = 2.0;
 
+    private string mName;
+
     public NeuroevolutionAgent(int[] neuralArch)
     {
         m_NeuralArchitecture = neuralArch;
+    }
+
+    public void SetAgentName(string name)
+    {
+        mName = name;
+        Population.SetAgentName(name);
     }
 
     public void SetupPerception(IPerception perception)

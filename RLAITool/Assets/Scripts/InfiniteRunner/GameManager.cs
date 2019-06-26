@@ -6,7 +6,7 @@ public class GameOverEvent : UnityEvent <float> {}
 
 public class GameManager : MonoBehaviour
 {
-    public float levelVelocity;
+    public float minLevelVelocity;
     public Transform cameraTransform;
 
     public GameOverEvent OnGameOver;
@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     private Transform player;
 
     private float lastPos;
+    private float lastPlayerPos;
+    private int framesInSamePos = 0;
 
     private bool isPlaying = false;
 
@@ -41,16 +43,26 @@ public class GameManager : MonoBehaviour
         if (!isPlaying) return;
 
         float currentPos = player.position.x - lastPos;
+
         ScoreManager.AddScore(Mathf.FloorToInt(currentPos));
         lastPos = player.position.x - (currentPos - Mathf.FloorToInt(currentPos));
 
         Vector3 currentPosition = cameraTransform.position;
-        currentPosition.x += levelVelocity * Time.deltaTime;
+        currentPosition.x += Mathf.Max(minLevelVelocity *Time.deltaTime, player.position.x - currentPosition.x);
         cameraTransform.position = currentPosition;
 
         Vector3 playerVPosition = Camera.main.WorldToViewportPoint(player.position);
 
-        if (playerVPosition.x < 0f)
+        if (Mathf.Abs(player.position.x - lastPlayerPos) < 0.1f)
+        {
+            framesInSamePos++;
+        } else {
+            framesInSamePos = 0;
+        }
+
+        lastPlayerPos = player.position.x;
+
+        if (playerVPosition.x < 0f || framesInSamePos > 10)
         {
             GameOver();
         }

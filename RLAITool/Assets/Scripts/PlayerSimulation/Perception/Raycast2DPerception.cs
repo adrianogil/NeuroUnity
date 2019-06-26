@@ -44,6 +44,8 @@ public class Raycast2DPerception : IPerception
 
     private double[] GetRaycastAtAngle(double angle)
     {
+        Debug.Log("GilLog - Raycast2DPerception::GetRaycastAtAngle - angle " + angle + " ");
+
         Vector3 direction = new Vector3(0, -1, 0);
         Quaternion rotate = Quaternion.AngleAxis((float)angle, new Vector3(0, 0, 1));
         direction = rotate * direction;
@@ -51,11 +53,11 @@ public class Raycast2DPerception : IPerception
 		Vector3 position = mPlayer.position;
 		double sqrDistance = (mRaycastDistance * mRaycastDistance);
 
-		RaycastHit2D hit = Physics2D.Raycast(position, direction, (float)mRaycastDistance, 
+		RaycastHit2D hit = Physics2D.Raycast(position, direction, (float)mRaycastDistance,
 		                                     1,//(1 << LayerMask.NameToLayer(Layers.Platforms_Default)) |
                                              1);//(1 << LayerMask.NameToLayer(Layers.Collectibles)));
 
-        Debug.DrawRay(mPlayer.position, direction * 10); 
+        Debug.DrawRay(mPlayer.position, direction * 10);
 
         for (int r = 0; r < mRaycastValues.Length; r++)
         {
@@ -90,6 +92,15 @@ public class Raycast2DPerception : IPerception
 
     public void DebugDraw()
     {
-        
+        for (int i = 0; i < mNumberOfRays; i++)
+        {
+            float angle = i * (180f / mNumberOfRays);
+
+            Vector3 direction = new Vector3(0, -1, 0);
+            Quaternion rotate = Quaternion.AngleAxis((float)angle, new Vector3(0, 0, 1));
+            direction = rotate * direction;
+            Debug.DrawRay(mPlayer.position, direction * 10);
+        }
+
     }
 }
